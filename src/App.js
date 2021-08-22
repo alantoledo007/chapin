@@ -1,25 +1,18 @@
-import logo from "./logo.svg";
-import "./App.css";
+import GlobalStyles from "src/styles/GlobalStyles";
+import { ThemeProvider } from "styled-components";
+import { themeDefault } from "src/styles/theme";
+import { Provider as ReduxProvider } from "react-redux";
+import Button from "src/components/shared/Button";
+import store from "./redux/store";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>Hello word!</h1>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ReduxProvider store={store}>
+      <GlobalStyles />
+      <ThemeProvider theme={themeDefault}>
+        <Button>hola</Button>
+      </ThemeProvider>
+    </ReduxProvider>
   );
 }
 
