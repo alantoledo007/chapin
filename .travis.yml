@@ -9,4 +9,5 @@ branches:
     - master
     - stable
 script:
+  - yarn build
   - yarn test
