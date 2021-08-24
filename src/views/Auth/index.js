@@ -1,14 +1,20 @@
 import { useState } from "react";
 import FormProcessor from "src/components/FormProcessor";
 import LoginForm from "src/components/LoginForm";
-import RegisterForm from "src/components/RegisterForm";
 import Button from "src/components/shared/Button";
 import If, { Else, Then } from "src/components/shared/If";
+import * as yup from "yup";
+import Login from "./Login";
+import Register from "./Register";
 
 const FORMS = {
   register: Symbol("register"),
   login: Symbol("login"),
 };
+
+const schema = yup.object().shape({
+  password: yup.string().required("error"),
+});
 
 export default function Auth() {
   const [selectedForm, setSelectedForm] = useState(FORMS.register);
@@ -25,12 +31,10 @@ export default function Auth() {
     <div>
       <If predicate={selectedForm === FORMS.register}>
         <Then>
-          <FormProcessor Form={RegisterForm} />
-          <Button onClick={selectLoginForm}>Ya tengo una cuenta</Button>
+          <Register onSubmit={() => {}} handleSelectForm={selectLoginForm} />
         </Then>
         <Else>
-          <FormProcessor Form={LoginForm} />
-          <Button onClick={selectRegisterForm}>No tengo una cuenta</Button>
+          <Login onSubmit={() => {}} handleSelectForm={selectRegisterForm} />
         </Else>
       </If>
     </div>

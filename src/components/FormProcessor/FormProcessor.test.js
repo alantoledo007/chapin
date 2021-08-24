@@ -15,7 +15,9 @@ describe("<FormProcessor />", () => {
   });
 
   test("renderiza correctamente el form recibido", () => {
-    render(<FormProcessor Form={RegisterForm} />);
+    render(
+      <FormProcessor schema={schema} Form={RegisterForm} onSubmit={onSubmit} />
+    );
 
     screen.getByText(/Contraseña/i); //label
   });
@@ -30,7 +32,9 @@ describe("<FormProcessor />", () => {
   });
 
   test("si la validación falla, renderiza un mensaje de error", async () => {
-    render(<FormProcessor schema={schema} Form={RegisterForm} />);
+    render(
+      <FormProcessor schema={schema} Form={RegisterForm} onSubmit={onSubmit} />
+    );
     const button = screen.getByText(/registrarse/i);
     await act(async () => fireEvent.click(button));
     screen.getByText(password_error_message); //label
@@ -49,5 +53,17 @@ describe("<FormProcessor />", () => {
     await act(async () => fireEvent.click(button));
 
     expect(onSubmit).toBeCalledTimes(1);
+  });
+
+  test("Si la propiedad 'schema' es null, retorna un error", () => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    expect(() => render(<FormProcessor />)).toThrow("The schema is required");
+  });
+
+  test("Retorna error si la propiedad  'onSubmit' NO es una función", () => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    expect(() => render(<FormProcessor schema={schema} />)).toThrow(
+      "onSubmit must be a function"
+    );
   });
 });
