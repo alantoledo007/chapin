@@ -3,6 +3,7 @@ import FormProcessor from "src/components/FormProcessor";
 import LoginForm from "src/components/LoginForm";
 import Button from "src/components/shared/Button";
 import If, { Else, Then } from "src/components/shared/If";
+import styled from "styled-components";
 import * as yup from "yup";
 import Login from "./Login";
 import Register from "./Register";
@@ -28,7 +29,7 @@ export default function Auth() {
   };
 
   return (
-    <div>
+    <Wrapper>
       <If predicate={selectedForm === FORMS.register}>
         <Then>
           <Register onSubmit={() => {}} handleSelectForm={selectLoginForm} />
@@ -37,6 +38,12 @@ export default function Auth() {
           <Login onSubmit={() => {}} handleSelectForm={selectRegisterForm} />
         </Else>
       </If>
-    </div>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  width: 100%;
+  max-width: 40em;
+  padding: 1em;
+`;
