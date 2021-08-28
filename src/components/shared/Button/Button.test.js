@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import Button from ".";
 
 describe("<Button />", () => {
@@ -8,8 +9,12 @@ describe("<Button />", () => {
     expect(button.tagName).toBe("BUTTON");
   });
 
-  test("Renderiza un link cuando recibe la prop 'href'", () => {
-    render(<Button href="#">Esto es un link</Button>);
+  test("Renderiza un link cuando recibe la prop 'to'", () => {
+    render(
+      <BrowserRouter>
+        <Button to="#">Esto es un link</Button>
+      </BrowserRouter>
+    );
     const button = screen.getByText(/Esto es un link/i);
     expect(button.tagName).toBe("A");
   });

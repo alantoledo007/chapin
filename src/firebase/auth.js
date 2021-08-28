@@ -24,14 +24,9 @@ export const loginWithEmailAndPassword = (email, password) => {
 };
 
 export const registerWithEmailAndPassword = (email, password, fullname) => {
-  return firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(async (credentials) => {
-      await credentials.user.updateProfile({ displayName: fullname });
-      await credentials.user.sendEmailVerification();
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  return firebase.auth().createUserWithEmailAndPassword(email, password);
+  // .then(async (credentials) => {
+  //   await credentials.user.updateProfile({ displayName: fullname });
+  //   await credentials.user.sendEmailVerification();
+  // });
 };

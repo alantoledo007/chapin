@@ -1,11 +1,17 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import createFormErrorHandler from "src/utils/createFormErrorHandler";
+import { act, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { FORMS_ERROR_MESSAGES } from "src/constants";
 import LoginForm from ".";
 
 describe("<LoginForm />", () => {
-  test("Renderiza correctamente", () => {
-    render(<LoginForm errorHandler={() => {}} register={() => {}} />);
+  let onSubmit;
 
+  beforeEach(() => {
+    onSubmit = jest.fn(() => new Promise((resolve, reject) => {}));
+    render(<LoginForm onSubmit={onSubmit} />);
+  });
+
+  test("Renderiza correctamente", () => {
     //labels
     screen.getByText(/Correo electrónico/i);
     screen.getByText(/Contraseña/i);
@@ -20,54 +26,48 @@ describe("<LoginForm />", () => {
     screen.getByPlaceholderText(/Contraseña/i);
   });
 
-  test("Submitea correctamente", () => {
-    const onSubmit = jest.fn((e) => e.preventDefault());
-    render(
-      <LoginForm
-        errorHandler={() => {}}
-        register={() => {}}
-        onSubmit={onSubmit}
-      />
+  test("Si el formulario se completa correctamente, se envía el formulario", async () => {
+    await userEvent.type(
+      screen.getByPlaceholderText("E-Mail"),
+      "alantoledo.work@gmail.com"
     );
-    const button = screen.getByText(/Ingresar/i);
-
-    fireEvent.click(button);
+    await userEvent.type(screen.getByPlaceholderText("Contraseña"), "12345678");
+    await act(async () => userEvent.click(screen.getByText(/Ingresar/i)));
 
     expect(onSubmit).toBeCalledTimes(1);
   });
 
-  test("Si el formulario se está enviando, se desactiva el botón", () => {
-    const onSubmit = jest.fn();
-    render(
-      <LoginForm
-        errorHandler={() => {}}
-        register={() => {}}
-        onSubmit={onSubmit}
-        isSubmitting={true}
-      />
-    );
-    const button = screen.getByText(/Ingresar/i);
-    fireEvent.click(button);
-
+  test("Si el formulario no tiene los campos requeridos, NO envía el formulario y renderiza los errores correspondientes", async () => {
+    await act(async () => userEvent.click(screen.getByText(/Ingresar/i)));
     expect(onSubmit).toBeCalledTimes(0);
-    expect(button).toBeDisabled();
+
+    screen.getByText(FORMS_ERROR_MESSAGES.email.required);
+    screen.getByText(FORMS_ERROR_MESSAGES.password.required);
   });
 
-  test("Cuando el formulario tiene errores, renderiza los mensajes de error", () => {
-    const errors = {
-      email: { message: "error email message." },
-      password: { message: "error password message." },
-    };
-    const errorHandler = createFormErrorHandler(errors);
-    render(
-      <LoginForm
-        register={() => {}}
-        errorHandler={errorHandler}
-        isSubmitting={true}
-      />
+  test("Renderiza los mensajes de error correspondientes cuando los datos no són válidos", async () => {
+    await userEvent.type(
+      screen.getByPlaceholderText("E-Mail"),
+      "alantoledo.mail.com"
     );
 
-    screen.getByText(/error email message./i);
-    screen.getByText(/error password message./i);
+    await act(async () => userEvent.click(screen.getByText(/Ingresar/i)));
+    screen.getByText(FORMS_ERROR_MESSAGES.email.valid);
+
+    expect(onSubmit).toBeCalledTimes(0);
+  });
+});
+
+describe("<LoginForm /> Submit", () => {
+  test("Si el formulario se está enviando, se desactiva el botón", async () => {
+    const onSubmit = jest.fn();
+    render(<LoginForm onSubmit={onSubmit} isSubmitting={true} />);
+
+    const button = screen.getByText(/Ingresar/i);
+    await act(async () => {
+      userEvent.click(button);
+    });
+    expect(button).toBeDisabled();
+    expect(onSubmit).toBeCalledTimes(0);
   });
 });
