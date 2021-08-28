@@ -1,5 +1,5 @@
 import { useToasts } from "react-toast-notifications";
-import LoginForm from "src/components/LoginForm";
+import LoginForm from "src/components/forms/LoginForm";
 import Button from "src/components/shared/Button";
 import { PATH_ROUTES } from "src/constants";
 import { loginWithEmailAndPassword } from "src/firebase/auth";

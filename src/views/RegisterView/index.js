@@ -1,5 +1,5 @@
 import { useToasts } from "react-toast-notifications";
-import RegisterForm from "src/components/RegisterForm";
+import RegisterForm from "src/components/forms/RegisterForm";
 import Button from "src/components/shared/Button";
 import { PATH_ROUTES } from "src/constants";
 import { registerWithEmailAndPassword } from "src/firebase/auth";
