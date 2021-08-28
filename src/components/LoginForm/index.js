@@ -1,11 +1,8 @@
 import Button from "src/components/shared/Button";
+import withReactHookForm from "src/hocs/withReactHookForm";
+import schema from "./schema";
 
-export default function LoginForm({
-  onSubmit,
-  isSubmitting,
-  register,
-  errorHandler,
-}) {
+const Form = ({ onSubmit, isSubmitting, register, errorHandler }) => {
   return (
     <form onSubmit={onSubmit}>
       <div>
@@ -35,4 +32,8 @@ export default function LoginForm({
       </Button>
     </form>
   );
-}
+};
+
+const LoginForm = withReactHookForm(schema)(Form);
+
+export default LoginForm;

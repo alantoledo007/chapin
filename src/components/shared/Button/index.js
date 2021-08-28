@@ -1,10 +1,13 @@
+import { forwardRef } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export default function Button(props) {
-  const HandleComponent = props.href ? Link : Btn;
-  return <HandleComponent {...props} />;
-}
-
-const Link = styled.a``;
-
+const A = styled(Link)``;
 const Btn = styled.button``;
+
+const Button = forwardRef((props, ref) => {
+  const Component = props.to ? A : Btn;
+  return <Component {...props} ref={ref} />;
+});
+
+export default Button;

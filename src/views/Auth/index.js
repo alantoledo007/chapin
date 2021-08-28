@@ -1,7 +1,5 @@
 import { useState } from "react";
-import FormProcessor from "src/components/FormProcessor";
-import LoginForm from "src/components/LoginForm";
-import Button from "src/components/shared/Button";
+import { Link } from "react-router-dom";
 import If, { Else, Then } from "src/components/shared/If";
 import styled from "styled-components";
 import * as yup from "yup";
@@ -12,10 +10,6 @@ const FORMS = {
   register: Symbol("register"),
   login: Symbol("login"),
 };
-
-const schema = yup.object().shape({
-  password: yup.string().required("error"),
-});
 
 export default function Auth() {
   const [selectedForm, setSelectedForm] = useState(FORMS.register);
@@ -38,6 +32,9 @@ export default function Auth() {
           <Login onSubmit={() => {}} handleSelectForm={selectRegisterForm} />
         </Else>
       </If>
+      <Link to={"/feed"}>
+        <a>hola</a>
+      </Link>
     </Wrapper>
   );
 }

@@ -1,11 +1,8 @@
 import Button from "src/components/shared/Button";
+import withReactHookForm from "src/hocs/withReactHookForm";
+import schema from "./schema";
 
-export default function RegisterForm({
-  onSubmit,
-  isSubmitting,
-  register,
-  errorHandler,
-}) {
+const Form = ({ onSubmit, isSubmitting, register, errorHandler }) => {
   return (
     <form onSubmit={onSubmit}>
       <div>
@@ -46,4 +43,8 @@ export default function RegisterForm({
       </Button>
     </form>
   );
-}
+};
+
+const RegisterForm = withReactHookForm(schema)(Form);
+
+export default RegisterForm;

@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import FormProcessor from ".";
-import RegisterForm from "../RegisterForm";
+import RegisterForm from "../../components/RegisterForm";
 import * as yup from "yup";
 
 describe("<FormProcessor />", () => {

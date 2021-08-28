@@ -13,3 +13,14 @@ export const FORMS_ERROR_MESSAGES = {
     max: "La contraseña no puede tener más de 16 caracteres.",
   },
 };
+
+export const PATH_ROUTES = {
+  login: "/login",
+  register: "/register",
+  feed: "/feed",
+};
+
+export const USER_STATES = {
+  NOT_KNOW: undefined,
+  NOT_LOGGED: null,
+};

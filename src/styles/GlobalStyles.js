@@ -25,6 +25,14 @@ const GlobalStyles = createGlobalStyle`
     * {
         box-sizing: border-box;
     }
+
+    .route-wrapper {
+        position: relative;
+    }
+
+    .route-wrapper > div {
+        position: absolute;
+    }
 `;
 
 export default GlobalStyles;
