@@ -1,10 +1,13 @@
 import { FORMS_ERROR_MESSAGES } from "src/constants";
 import * as yup from "yup";
 
-const email_messages = FORMS_ERROR_MESSAGES.email;
+const description_messages = FORMS_ERROR_MESSAGES.description;
 
 const schema = yup.object().shape({
-  description: yup.string().required(email_messages.required),
+  description: yup
+    .string()
+    .required(description_messages.required)
+    .min(10, description_messages.min),
 });
 
 export default schema;

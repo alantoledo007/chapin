@@ -12,6 +12,10 @@ export const FORMS_ERROR_MESSAGES = {
     min: "Se requiere como mínimo 6 caracteres.",
     max: "La contraseña no puede tener más de 16 caracteres.",
   },
+  description: {
+    required: "Por favor ingrese una descripción",
+    min: "Se requieren 10 caractéres como mínimo",
+  },
 };
 
 export const PATH_ROUTES = {
