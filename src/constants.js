@@ -18,6 +18,7 @@ export const PATH_ROUTES = {
   login: "/login",
   register: "/register",
   feed: "/feed",
+  publish: "/publish",
 };
 
 export const USER_STATES = {

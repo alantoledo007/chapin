@@ -12,6 +12,7 @@ import { PATH_ROUTES } from "./constants";
 import { ToastProvider } from "react-toast-notifications";
 import useUser from "./hooks/useUser";
 import FeedView from "./views/FeedView";
+import PublishView from "./views/PublishView";
 
 function App() {
   return (
@@ -52,6 +53,11 @@ const auth_routes = [
     exact: true,
     component: authHandler(FeedView),
     path: PATH_ROUTES.feed,
+  },
+  {
+    exact: true,
+    component: authHandler(PublishView),
+    path: PATH_ROUTES.publish,
   },
 ];
 

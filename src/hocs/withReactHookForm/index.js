@@ -21,7 +21,9 @@ const withReactHookForm = (schema) => (Component) => (props) => {
       register={register}
       isSubmitting={isSubmitting}
       errorHandler={errorHandler}
+      handleSubmit={handleSubmit}
       {...props}
+      onSubmitDefault={props.onSubmit}
       onSubmit={handleSubmit(props.onSubmit)}
     />
   );

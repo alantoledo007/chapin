@@ -30,3 +30,7 @@ export const registerWithEmailAndPassword = (email, password, fullname) => {
   //   await credentials.user.sendEmailVerification();
   // });
 };
+
+export const getCurrentUser = () => {
+  return mapUserFromFirebaseAuth(firebase.auth().currentUser);
+};
